@@ -2,7 +2,7 @@
 Author: Omar-Bounawara
 
 
-Problem:(modified version of a problem from hackerank)
+Problem:(modified version of a problem from hackerRank)
 To decode the script, Neo needs to read each column and select only the alphanumeric characters and connect them.
 Neo reads the column from top to bottom and starts reading from the leftmost column.
 If there are symbols or spaces between two alphanumeric characters of the decoded script, then Neo replaces them

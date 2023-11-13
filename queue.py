@@ -37,9 +37,6 @@ class pq():
         return str[:-1]
 
 
-
-
-
     def __iter__(self):
         self.pos=0
         return self

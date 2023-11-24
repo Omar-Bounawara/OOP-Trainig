@@ -1,0 +1,115 @@
+"""
+Author : Omar Bounawara
+Date : 24/11/2023
+
+
+STATIC ARRAY:
+
+1- Introduction:
+
+  This is the first Structure in the Data-Structures Series I started where I will implement common Data Structures
+  Using OOP.
+  The Static array is based on the numpy array, some may ask why would I implement already Existing Methods,
+  well it's just for Pure Educational Purpose , this array isn't Supposed to be used outside this Script
+  and this applies to all the other Data structures in the series ,
+  they all just showcase the use of OOP principles, and they are by no means
+  'Efficient' or 'Optimised' as my Priority is  Readability and Simplicity.
+
+2- Code Overview :
+
+  as said in the introduction the array is based on the numpy array, but it doesn't use any of it's Methods,
+  it has its own repr, iter , next methods.
+  the instance is created by a size and a type for its elements and then filled by the fill()
+  which automatically asks the user for a value for every case in the array.
+  the user can perform limited but various operations such as the find (using sequential search) ,change the value
+  in a case or clearing the array keeping size and type properties which can be accessed through info()
+
+3- Example Usage  :
+  uncomment code below
+"""
+from numpy import array
+
+
+class StaticArray:
+    def init(self, size: int, elements_type: type):
+        self.Array = array([elements_type]*size)
+        self.__Size = size
+        self.__Type = elements_type
+        self.__filled = False
+
+    def __iter(self):
+        self.Current_Index = 0
+        return self
+
+    def __next(self):
+        if self.Current_Index != self.__Size and self.__Array[self.__Current_Index] != self.__Type:
+            current_element = self.__Array[self.__Current_Index]
+            self.__Current_Index += 1
+            return current_element
+        else:
+            raise StopIteration
+
+    def __repr(self):
+        str_to_print = ""
+        for element in self:
+            str_to_print += str(element)+" "
+        return str_to_print[:-1]
+
+    def info(self):
+        str_to_print = f"Type : {self.Type.__name}  Size : {self.Size} \n"
+        return str_to_print
+
+    def fill(self):
+        if not self.__filled:
+            for i in range(self.__Size):
+                element = self.check_input(input(f"T[{i}] : "))
+                self.change_value(i, element)
+                self.__filled = True
+
+    def clear(self):
+        self.__Array = array([self.__Type]*self.__Size)
+        self.__filled = False
+
+    def check_input(self, element):
+        while True:
+            try:
+                element = self.__Type(element)
+                return element
+            except TypeError:
+                element = input(f"element must be instance of {self.__Type.__name}\nNew Value : ")
+
+    def change_value(self, index, value):
+        try:
+            self.__Array[index] = value
+        except IndexError or TypeError:
+            print("couldn't change the value : possible issues :\n- index is out of bonds.\n- type issue.")
+
+    def find(self, value):
+        for element in self:
+            if element == value:
+                return self.__Current_Index - 1
+        return -1
+
+
+"""
+print("initializing a new Array : size 5 type int")
+New_Array = StaticArray(5, int)
+print("Displaying Array Info :")
+print(New_Array.info())
+print("Filling The Array")
+New_Array.fill()
+print("the Array after filling")
+print(New_Array)
+print("changing the value of The first Element : 474")
+New_Array.change_value(0, 476)
+print(New_Array)
+print("finding the first index of 7")
+first7 = New_Array.find(7)
+print(first7)
+print("clearing the array")
+New_Array.clear()
+print("array after clearing")
+print(New_Array)
+print("Displaying Array Info :")
+print(New_Array.info())
+"""
